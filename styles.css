@@ -1,48 +1,49 @@
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+*{
+  box-sizing: border-box;
+}
+body{
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+head{
+  font-size: 4vmin;
+  color: darkgreen;
+  letter-spacing: 1min;
+}
+
+#foundation-pile{
+  width: 75vmin;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 10vmin);
+  gap: 1vmin;
+  margin-top: 4vmin;
+  background-color: dodgerblue;
+}
+#foundation-pile > div{
+  height: 20vmin;
+  border-width: 5vmin;
+  border-color: lightgrey;
+  border-style: solid;
+  background-color: brown;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(1, 20vmin);
+    grid-template-rows: repeat(7, 20vmin);
+    gap: 1vmin;
+    margin-top: -20vmin;
+  }
+  #board > div{
+    border: 1vmin solid black;
+    border-radius: 10%;
+  }
+
+  button{
+    border-radius: 50%;
   }
   
-  #deck {
-    width: 100px;
-    height: 140px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin-top: 20px;
-  }
-  
-  #tableau {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    margin-top: 20px;
-  }
-  
-  .column {
-    width: 100px;
-    height: 300px;
-    border: 2px solid black;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 5px;
-  }
-  
-  .column > * {
-    margin-top: -20px;
-  }
-  
-  .foundation-pile {
-    width: 100px;
-    height: 140px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin-left: 10px;
-  }
-  
-  .foundation-pile > * {
-    margin-top: 20px;
-  }
