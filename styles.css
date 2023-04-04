@@ -1,1 +1,48 @@
-
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #deck {
+    width: 100px;
+    height: 140px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  #tableau {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .column {
+    width: 100px;
+    height: 300px;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+  }
+  
+  .column > * {
+    margin-top: -20px;
+  }
+  
+  .foundation-pile {
+    width: 100px;
+    height: 140px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  
+  .foundation-pile > * {
+    margin-top: 20px;
+  }

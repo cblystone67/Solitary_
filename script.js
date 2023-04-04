@@ -7,7 +7,9 @@
   /*----- state variables -----*/
 let deck = getDeck();
   /*----- cached elements  -----*/
-
+// const deckEl = document.getElementById('deck');
+// const tableEl = document.getElementById('tableau');
+// const foundationEl = document.getElementById('foundation');
 
   /*----- event listeners -----*/
 
@@ -31,6 +33,7 @@ let deck = getDeck();
     }
     return deck;
   }
+
   console.log(shuffle(deck));
   
 
