@@ -9,24 +9,25 @@
     <title>Solitary</title>
 </head>
 <body>
-    <div class="board">
-        <div class="stack">
-          <div class="drop-zone empty"></div>
-          <div class="card" draggable="true">A</div>
+    <div class="container">
+        <div class="stock" onclick="dealCards()">
+          <img src="card-deck/images/card-back.svg" />
         </div>
-        <div class="stack">
-          <div class="drop-zone empty"></div>
-          <div class="card" draggable="true">2</div>
-        </div>
-        <div class="stack">
-          <div class="drop-zone empty"></div>
-          <div class="card" draggable="true">3</div>
-        </div>
-        <div class="stack">
-          <div class="drop-zone empty"></div>
-          <div class="card" draggable="true">4</div>
-        </div>
-      </div>
-    
+  
+        <div class="waste drop-zone"></div>
+  
+        <div class="foundation drop-zone" id="foundation-1"></div>
+        <div class="foundation drop-zone" id="foundation-2"></div>
+        <div class="foundation drop-zone" id="foundation-3"></div>
+        <div class="foundation drop-zone" id="foundation-4"></div>
+  
+        <div class="tableau" id="tableau-1"></div>
+        <div class="tableau" id="tableau-2"></div>
+        <div class="tableau" id="tableau-3"></div>
+        <div class="tableau" id="tableau-4"></div>
+        <div class="tableau" id="tableau-5"></div>
+        <div class="tableau" id="tableau-6"></div>
+        <div class="tableau" id="tableau-7"></div>
+      </div> 
 </body>
 </html>
