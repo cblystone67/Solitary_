@@ -2,48 +2,26 @@
  const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
  const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
  
- //Creation of the card class.
- class Card{
-  constructor(suit, value){
-    this.suit = suit;
-    this.value = value;
-    this. faceUp = false;
-  }
-  getImgSrc(){
-    //need to obtain the file for the image.
-  }
-  flip(){
-    //this will cause the card to flip over or cards.
-  }
- }
- //Creation of the Deck class
-class Deck{
-  constructor(){
-    this.cards = [];
-    for (let suit of suits){
-      for (let value of values){
-        this.cards.push(new Card(suit, rank));
-      }
-    }
-    this.shuff();
-  }
-  shuffle(){
-    for (let i = this.cards.length -1; i > 0; i--){
-      let j = Math.floor(Math.random() * (i + 1));
-      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
-    }
-  }
-  draw(){
-    if (this.cards.length > 0){
-      return this.cards.pop();
-    }else{
-      return null;
-    }
-  }
-}
+  const cards = document.querySelectorAll('.card');
 
+  cards.forEach(card => {
+  //The dragstart event is fired when the user starts dragging an element or text selection.
+  card.addEventListener('dragstart', dragStart);
+  //The dragend event is fired when a drag operation is being ended (by releasing a mouse button or hitting the escape key).
+  card.addEventListener('dragend', dragEnd)
+  //The dragover event is fired when an element or text selection is being dragged over a valid drop target (every few hundred milliseconds).
+  card.addEventListener('dragover', dragOver);
+  //The dragenter event is fired when a dragged element or text selection enters a valid drop target.
+  card.addEventListener('dragenter', dragEnter);
+  //The dragleave event is fired when a dragged element or text selection leaves a valid drop target.
+  card.addEventListener('dragleave', dragLeave);
+  //The drop event is fired when an element or text selection is dropped on a valid drop target.
+  card.addEventListener('drop', dragDrop);
 
-
+});
+let dragCard = null;
+//The dragStart function will be called when a card is first picked up 
+//and will set the data transfer object for the drag operation.
 
   /*----- state variables -----*/
 //let deck = getDeck();

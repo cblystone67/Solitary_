@@ -1,17 +1,66 @@
-.board{
+
+body {
   display: flex;
   justify-content: center;
-}
-.pile{
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 0 10px;
+  height: 100vh;
 }
-.pile section{
-  border:1px solid black;
+
+.board {
+  display: flex;
+}
+
+.stack {
+  width: 120px;
+  height: 200px;
+  border: 2px solid #333;
+  margin-right: 20px;
+}
+
+.card {
+  position: absolute;
   width: 100px;
-  height: 150px;
-  padding: 10px;
-  margin-bottom: 10px;
+  height: 140px;
+  background-color: #fff;
+  border: 2px solid #333;
+  font-size: 3em;
+  line-height: 140px;
+  text-align: center;
+  cursor: grab;
+  z-index: 1;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.drop-zone {
+  width: 100px;
+  height: 140px;
+  border: 2px dashed #333;
+  margin-right: 20px;
+  position: relative;
+  z-index: 0;
+}
+
+.empty:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.hovered {
+  border-color: #f00;
 }
