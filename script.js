@@ -13,7 +13,7 @@
         card.dataset.suit = suit;
         card.dataset.value = value;
         const img = document.createElement('img');
-        img.src = `/card-deck/images/${suit}/${suit}-${value}.svg`;
+        img.src = `deck/images/${suit}/${suit}-${value}.svg`;
         card.append(img);
         deck.push(card);
       }
