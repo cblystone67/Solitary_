@@ -1,82 +1,128 @@
+*{
+  box-sizing: border-box;
+}
+/* Set the styles for the container elements */
 .container {
+  width: 800px;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Set the styles for the card elements */
+.card {
+  width: 70px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Set the size of the deck */
+.deck {
+  width: 70px;
+  height: 100px;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: absolute;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+
+/* Set the size of the piles */
+.pile {
+  width: 72px;
+  height: 102px;
+  background-color: green;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
-.stock {
-  position: absolute;
+/* Set the size of the foundation */
+.foundation {
+  width: 300px;
+  height: 100px;
+  background-color: blue;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+/* Set the position of the cards, deck, piles, and foundation */
+#deck {
   top: 10px;
   left: 10px;
-  width: 100px;
-  height: 150px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #fff;
-  cursor: pointer;
 }
 
-.waste {
-  position: absolute;
+#piles {
   top: 10px;
   left: 120px;
-  width: 100px;
-  height: 150px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 560px;
 }
 
-.foundation {
-  position: absolute;
+#foundation {
   top: 10px;
-  width: 100px;
-  height: 150px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #eee;
+  left: 600px;
 }
 
-.tableau {
-  position: relative;
-  width: 100px;
-  height: 150px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #fff;
+#pile1 {
+  top: 120px;
+  left: 0;
 }
 
-.card {
-  position: absolute;
-  width: 80px;
-  height: 120px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 1px 1px 5px #888;
-  cursor: pointer;
+#pile2 {
+  top: 120px;
+  left: 80px;
 }
 
-.card img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+#pile3 {
+  top: 120px;
+  left: 160px;
 }
 
-.drop-zone {
-  margin-bottom: 10px;
+#pile4 {
+  top: 120px;
+  left: 240px;
 }
 
-.drop-zone.empty {
-  border-style: dashed;
+#pile5 {
+  top: 120px;
+  left: 320px;
 }
 
-.highlight {
-  border-color: #ff0;
+#pile6 {
+  top: 120px;
+  left: 400px;
+}
+
+#pile7 {
+  top: 120px;
+  left: 480px;
+}
+
+/* Set the styles for the foundation cards */
+.foundation .card {
+  margin-right: 10px;
+}
+
+.foundation .car:last-child{
+  margin-right: 0;
 }
