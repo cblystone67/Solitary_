@@ -22,6 +22,8 @@
 }
 
 deck = createDeck();
+deck = shuffle(deck);
+// dealCards(deck);
 
 
 
@@ -35,12 +37,23 @@ function shuffle(deck){
 }
 function dealCards(){
   const columns = document.querySelectorAll('.column');
-  const cards = shuffle(createDeck());
+  // console.log(columns);
+  // const cards = shuffle(createDeck());
   let cardIndex = 0;
   const numCols = 7;
+
+  // for each of 7 columns, deal into all higher-numbered columns
   for (let i = 0; i < numCols; i++){
     for (let j = i; j < numCols; j++){
-      const card = cards.splice(cardIndex, 1)[0];
+
+      // grab the top card off the deck
+      // const card = cards.splice(cardIndex, 1)[0];
+      card = deck.shift();
+
+      console.log(j);
+      console.log(columns[j]);
+      console.log(typeof columns[j]);
+      console.log(typeof card);
       columns[j].appendChild(card);
       if (j === i){
         card.classList.add('face-up');
