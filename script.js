@@ -1,13 +1,11 @@
 /*----- constants -----*/
 
-const pile1El = document.getElementById('pile1');
-const pile2El = document.getElementById('pile2');
-const pile3El = document.getElementById('pile3');
-const pile4El = document.getElementById('pile4');
-const pile5El = document.getElementById('pile5');
-const pile6El = document.getElementById('pile6');
-const pile7El = document.getElementById('pile7');
 const deckEl = document.getElementById('deck');
+const foundationEl = document.getElementById('foundation');
+const pile1El = document.getElementById('pile1');
+const startBtn = document.getElementById('start-game');
+const flipBtn = document.getElementById('flip-cards');
+
 
 
 
@@ -54,7 +52,8 @@ function freshDeck(){
 function initialize(){
   deck = new Deck();
   deck.shuffle();
-  setPiles();
+  //setPiles();
+  setImage(deck);
 }
 function setPiles(){
   //1 We want it to deal one card face to pile one itterating through 
@@ -81,8 +80,19 @@ function setPiles(){
   imageEl7.setAttribute('src', deck.cards[6].imageUrl);
   pile7El.appendChild(imageEl7);
 }
-
-
+function setImage(){
+  const pileEl = document.getElementById('pile');
+  // let imageEl = document.createElement('img')
+  // imageEl.setAttribute('src', deck.cards[0].imageUrl);
+  // pile1El.appendChild(imageEl);
+  for(let i = 0; i < 7; i++){
+    let pileNum = i + 1;
+    let pileId = `pile${pileNum}El`;
+    let imageEl = document.createElement('img');
+    imageEl.setAttribute('src', deck.cards[i].imageUrl);
+    document.getElementById(pileId).appendChild(imageEl);
+  }
+}
 // const deck = new Deck();
 // deck.shuffle();
 console.log(deck);
