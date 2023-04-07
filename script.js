@@ -11,7 +11,7 @@ const pile6El = document.getElementById('pile6');
 const pile7El = document.getElementById('pile7');
 const startBtn = document.getElementById('start-game');
 const flipBtn = document.getElementById('flip-cards');
-
+const piles = [pile1El, pile2El, pile3El, pile4El, pile5El, pile6El, pile7El];
 
 
 
@@ -53,47 +53,32 @@ function freshDeck(){
     });
   });
 }
-
-
+startBtn.addEventListener('click', function(){
+  resetGame();
+  initialize();
+});
 function initialize(){
   deck = new Deck();
   deck.shuffle();
-  setPiles2();
+  setPiles();
 }
 function setPiles(){
-  //1 We want it to deal one card face to pile one itterating through 
-  //adding 1 for each succeeding row.
-  let imageEl = document.createElement('img')
-  pile1El.appendChild(imageEl);
-  let imageEl2 = document.createElement('img')
-  imageEl2.setAttribute('src', deck.cards[1].imageUrl);
-  pile2El.appendChild(imageEl2);
-  let imageEl3 = document.createElement('img')
-  imageEl3.setAttribute('src', deck.cards[2].imageUrl);
-  pile3El.appendChild(imageEl3);
-  let imageEl4 = document.createElement('img')
-  imageEl4.setAttribute('src', deck.cards[3].imageUrl);
-  pile4El.appendChild(imageEl4);
-  let imageEl5 = document.createElement('img')
-  imageEl5.setAttribute('src', deck.cards[4].imageUrl);
-  pile5El.appendChild(imageEl5);
-  let imageEl6 = document.createElement('img')
-  imageEl6.setAttribute('src', deck.cards[5].imageUrl);
-  pile6El.appendChild(imageEl6);
-  let imageEl7 = document.createElement('img')
-  imageEl7.setAttribute('src', deck.cards[6].imageUrl);
-  pile7El.appendChild(imageEl7);
-  
-}
-function setPiles2(){
-  const piles = document.querySelectorAll('column');
-  for(let i =0; i < piles.length; i++){
+  for (let i = 0; i < piles.length; i++){
     const imageEl = document.createElement('img');
-    imageEl.setAttribute('src', deck.cards[i].imageUrl);
+    imageEl.setAttribute('src', deck.cards[i+1].imageUrl);
     piles[i].appendChild(imageEl);
   }
 }
-// const deck = new Deck();
-// deck.shuffle();
-console.log(deck);
+
+function resetGame(){
+  deckEl.innerHTML = '';
+  //foundationEl.innerHTML = '';
+  for (let i = 1; i <= 7; i++){
+    const pileEl = document.getElementById(`pile${i}`);
+    pileEl.innerHTML = '';
+  }
+}
+//const deck = new Deck();
+ //deck.shuffle();
+//console.log(deck);
 initialize();

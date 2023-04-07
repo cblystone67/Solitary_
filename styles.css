@@ -48,7 +48,7 @@
   border-radius: 5px;
   position: absolute;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  z-index: 1; /* experiment by added higher z-index */
+  z-index: 1; 
 }
 
 /* Set the size of the piles */
