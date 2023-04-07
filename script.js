@@ -88,12 +88,13 @@ function initialize(){
   setPiles();
   setDeck();
 }
+
 function setDeck(){
   const imageEl = document.createElement('img');
   imageEl.setAttribute('src', 'deck/images/backs/blue.svg')
   deckEl.appendChild(imageEl);
-  
 }
+
 function setPiles(){
   for (let i = 0; i < piles.length; i++){
     const imageEl = document.createElement('img');
@@ -109,45 +110,14 @@ function resetGame(){
     pileEl.innerHTML = '';
   }
 }
-let selectedCards = [];
-
-function handleCardClick(event) {
-  const clickedCard = event.target;
-  
-  if (selectedCards.length < 2 && !selectedCards.includes(clickedCard)) {
-    selectedCards.push(clickedCard);
-    clickedCard.style.border = '2px solid blue';
-    
-    if (selectedCards.length === 2) {
-      const [firstCard, secondCard] = selectedCards;
-      
-      // Check if second card clicked is in the <div> location of pile
-      if (secondCard.parentElement.id === 'pile') {
-        const firstCardValue = parseInt(firstCard.dataset.value);
-        const secondCardValue = parseInt(secondCard.dataset.value);
-        
-        if (firstCardValue === secondCardValue + 1 && firstCard.dataset.color !== secondCard.dataset.color) {
-          secondCard.style.border = '2px solid blue';
-        } else {
-          alert('Invalid move. The first card clicked must be a different color and less in value by 1.');
-        }
-      } else {
-        const firstCardSuit = firstCard.dataset.suit;
-        const secondCardSuit = secondCard.dataset.suit;
-        const firstCardValue = parseInt(firstCard.dataset.value);
-        const secondCardValue = parseInt(secondCard.dataset.value);
-        
-        if (firstCardSuit === secondCardSuit && firstCardValue === secondCardValue + 1) {
-          secondCard.style.border = '2px solid blue';
-        } else {
-          alert('Invalid move. The first card clicked must be of the same suit and of greater value by 1.');
-        }
-      }
-    }
-  } else if (selectedCards.includes(clickedCard)) {
-    const index = selectedCards.indexOf(clickedCard);
-    selectedCards.splice(index, 1);
-    clickedCard.style.border = 'none';
-  }
+function allowDrop(ev){
+  ev.preventDefault();
 }
-
+function drag(ev){
+  ev.dataTransfer.setData('text', ev.target.id);
+}
+function drop(ev){
+  ev.preventDefault();
+  let.data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
