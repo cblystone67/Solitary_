@@ -32,7 +32,7 @@
 .card {
   width: 70px;
   height: 100px;
-  background-color: white;
+  background-color: rgb(123, 202, 233);
   border: 1px solid black;
   border-radius: 5px;
   margin: 2px;
@@ -55,7 +55,7 @@
 .pile {
   width: 72px;
   height: 102px;
-  background-color: green;
+  background-color: rgb(123, 202, 233);
   border: 1px solid black;
   border-radius: 5px;
   position: relative;
@@ -64,7 +64,10 @@
   justify-content: center;
   align-items: center;
 }
-
+.pile img{
+  height: 100%;
+  width: 100%;
+}
 /* Set the size of the foundation */
 .foundation {
   width: 100%;
