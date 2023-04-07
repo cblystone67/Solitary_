@@ -58,13 +58,12 @@ function freshDeck(){
 function initialize(){
   deck = new Deck();
   deck.shuffle();
-  setPiles();
+  setPiles2();
 }
 function setPiles(){
   //1 We want it to deal one card face to pile one itterating through 
   //adding 1 for each succeeding row.
   let imageEl = document.createElement('img')
-  imageEl.setAttribute('src', deck.cards[0].imageUrl);
   pile1El.appendChild(imageEl);
   let imageEl2 = document.createElement('img')
   imageEl2.setAttribute('src', deck.cards[1].imageUrl);
@@ -84,8 +83,16 @@ function setPiles(){
   let imageEl7 = document.createElement('img')
   imageEl7.setAttribute('src', deck.cards[6].imageUrl);
   pile7El.appendChild(imageEl7);
+  
 }
-
+function setPiles2(){
+  const piles = document.querySelectorAll('column');
+  for(let i =0; i < piles.length; i++){
+    const imageEl = document.createElement('img');
+    imageEl.setAttribute('src', deck.cards[i].imageUrl);
+    piles[i].appendChild(imageEl);
+  }
+}
 // const deck = new Deck();
 // deck.shuffle();
 console.log(deck);
