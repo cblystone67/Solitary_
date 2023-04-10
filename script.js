@@ -1,23 +1,16 @@
-/*----- constants -----*/
 
 const deckEl = document.getElementById('deck');
 const foundationEl = document.getElementById('foundation');
-const pile1El = document.getElementById('pile1');
-const pile2El = document.getElementById('pile2');
-const pile3El = document.getElementById('pile3');
-const pile4El = document.getElementById('pile4');
-const pile5El = document.getElementById('pile5');
-const pile6El = document.getElementById('pile6');
-const pile7El = document.getElementById('pile7');
 const startBtn = document.getElementById('start-game');
 const flipBtn = document.getElementById('flip-cards');
 
-
-const piles = [pile1El, pile2El, pile3El, pile4El, pile5El, pile6El, pile7El];
+const piles = [];
+for(let i = 1; i <= 7; i++){
+  piles.push(document.getElementById(`pile${i}`));
+}
 
 const Suits = ['hearts', 'diamonds', 'spades', 'clubs'];
 const Values = ['A','K','Q','J','r10','r09','r08','r07','r06','r05','r04','r03','r02'];
-
 
 let deck;
 class Deck{
@@ -47,7 +40,10 @@ class Card{
   constructor(suit, value){
     this.suit = suit;
     this.value = value;
-    this.imageUrl = `deck/images/${suit}/${suit}-${value}.svg`
+    
+  }
+  getImageUrl(){
+    return `deck/images/${this.suit}/${this.suit}-${this.value}.svg`
   }
 }
 function freshDeck(){
@@ -61,23 +57,19 @@ initialize();
 startBtn.addEventListener('click', function(){
   resetGame();
   initialize();
-  flipCards();
 });
 flipBtn.addEventListener('click', function(){
-  flipCards();
+    const currentCard = deck.deal(1)[0]; // Deal a single card from the deck
+    if (currentCard) { // Check if there are still cards in the deck
+      const imageEl = document.createElement('img');
+      imageEl.setAttribute('src', currentCard.getImageUrl());
+      deckEl.innerHTML = ''; // Remove any existing card image
+      deckEl.appendChild(imageEl);
+      deckCount.appendChild(imageEl); // Add the new card image
+    } else {
+      alert('There are no more cards in the deck!');
+    }
 })
-function flipCards(){
-  const currentCard = deck.deal(1)[0]; // Deal a single card from the deck
-  if (currentCard) { // Check if there are still cards in the deck
-    const imageEl = document.createElement('img');
-    imageEl.setAttribute('src', currentCard.imageUrl);
-    deckEl.innerHTML = ''; // Remove any existing card image
-    deckEl.appendChild(imageEl); // Add the new card image
-  } else {
-    alert('There are no more cards in the deck!');
-  }
-  
-}
 const deckCount = document.getElementById('deck-count');
 deckCount.textContent = `Cards left in deck: ${deck.numberOfCards}`;
 
@@ -85,7 +77,7 @@ deckCount.textContent = `Cards left in deck: ${deck.numberOfCards}`;
 function initialize(){
   deck = new Deck();
   deck.shuffle();
-  setPiles();
+  setPiles(deck);
   setDeck();
 }
 
@@ -95,10 +87,14 @@ function setDeck(){
   deckEl.appendChild(imageEl);
 }
 
-function setPiles(){
+function setPiles(deck){
   for (let i = 0; i < piles.length; i++){
+    const card = deck.deal(1)[0];
     const imageEl = document.createElement('img');
-    imageEl.setAttribute('src', deck.cards[i+1].imageUrl);
+    console.log('imageEl')
+    console.log(imageEl)
+    imageEl.setAttribute('src', card.getImageUrl());
+    console.log(piles[i])
     piles[i].appendChild(imageEl);
   }
 }
@@ -118,6 +114,6 @@ function drag(ev){
 }
 function drop(ev){
   ev.preventDefault();
-  let.data = ev.dataTransfer.getData("text");
+  let data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
 }
