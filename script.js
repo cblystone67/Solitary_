@@ -114,13 +114,8 @@ function setPiles(deck){
       imageEl.classList.add('class.suit')
       console.log(imageEl)
       imageEl.setAttribute('value', card.getImageUrl());
-
-      //barrowed code/to set the cards
-      imageEl.setAttribute('src', 'deck/images/backs/blue.svg');
+      imageEl.setAttribute('src', card.getImageUrl());
       imageEl.classList.add('card');
-      //****************************************** */
-
-
       piles[i].appendChild(imageEl);
       j++;
     }
@@ -145,24 +140,24 @@ cards.forEach(card => {
   card.addEventListener('click', handleClick);
 });
 
-
 let selectedCard = null;
 
-function handleClick(event){
-  const clickedItem = event.target;
-  // Check if a card has already been selected
-  if(selectedCard) {
-    // Replace the first selected card with the second one
-    const temp = clickedItem.getAttribute('src');
-    clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
-    selectedCard.setAttribute('src', temp);
+ function handleClick(event){
+   const clickedItem = event.target;
+   // Check if a card has already been selected
+   if(selectedCard) {
+     // Replace the first selected card with the second one
+     const temp = clickedItem.getAttribute('src');
+     console.log(selectedCard)
+     clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
+     selectedCard.setAttribute('src', temp);
     
-    // Clear the selection
-    selectedCard.classList.remove('highlight');
-    selectedCard = null;
-  } else {
-    // Select the card
-    clickedItem.classList.add('highlight');
-    selectedCard = clickedItem;
-  }
+     // Clear the selection
+     selectedCard.classList.remove('highlight');
+     selectedCard = null;
+   } else {
+     // Select the card
+     clickedItem.classList.add('highlight');
+     selectedCard = clickedItem;
+   }
 }
