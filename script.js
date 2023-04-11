@@ -9,6 +9,7 @@ for(let i = 1; i <= 7; i++){
   piles.push(document.getElementById(`pile${i}`));
 }
 
+
 const Suits = ['hearts', 'diamonds', 'spades', 'clubs'];
 const Values = ['A','K','Q','J','r10','r09','r08','r07','r06','r05','r04','r03','r02'];
 
@@ -23,7 +24,7 @@ class Deck{
   get numberOfCards(){
     return this.cards.length;
   }
-
+  
   shuffle(){
     for (let i = this.numberOfCards -1; i > 0; i--){
       const newIndex = Math.floor(Math.random() * (i + 1));
@@ -32,7 +33,7 @@ class Deck{
       this.cards[i] = oldValue;
     }
   }
-
+  
   deal(numberOfCards){
     const dealtCards = this.cards.splice(0, numberOfCards);
     this.cardsInPlay = this.cardsInPlay.concat(dealtCards);
@@ -108,15 +109,25 @@ function setPiles(deck){
     let j = 0;
     while(j < i + 1){
       const card = deck.deal(1)[0];
+      console.log(card.suit);
       const imageEl = document.createElement('img');
+      imageEl.classList.add('class.suit')
+      console.log(imageEl)
       imageEl.setAttribute('value', card.getImageUrl());
+
+      //barrowed code/to set the cards
+      imageEl.setAttribute('src', 'deck/images/backs/blue.svg');
+      imageEl.classList.add('card');
+      //****************************************** */
+
+
       piles[i].appendChild(imageEl);
       j++;
     }
     console.log(piles[i]);
     //piles[i] is a div element because it is a div element we can acces the children.  First child allows us to target the first element in the selected div.  We can then set the img attribute of that first child.  We can set the source image to the value that we stored inside the image element in the while loop.
     piles[i].firstChild.setAttribute('src', piles[i].firstChild.getAttribute('value'));
-   
+    
   }
 }
 
@@ -129,3 +140,29 @@ function resetGame(){
   }
 }
 
+const cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+  card.addEventListener('click', handleClick);
+});
+
+
+let selectedCard = null;
+
+function handleClick(event){
+  const clickedItem = event.target;
+  // Check if a card has already been selected
+  if(selectedCard) {
+    // Replace the first selected card with the second one
+    const temp = clickedItem.getAttribute('src');
+    clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
+    selectedCard.setAttribute('src', temp);
+    
+    // Clear the selection
+    selectedCard.classList.remove('highlight');
+    selectedCard = null;
+  } else {
+    // Select the card
+    clickedItem.classList.add('highlight');
+    selectedCard = clickedItem;
+  }
+}
