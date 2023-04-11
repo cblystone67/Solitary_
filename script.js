@@ -2,6 +2,7 @@ const deckEl = document.getElementById('deck');
 const foundationEl = document.getElementById('foundation');
 const startBtn = document.getElementById('start-game');
 const flipBtn = document.getElementById('flip-cards');
+const deckCount = document.getElementById('deck-count');
 
 const piles = [];
 for(let i = 1; i <= 7; i++){
@@ -83,7 +84,6 @@ function flipCards(){
   }
 }
 function updateDeckCount(){
-  const deckCount = document.getElementById('deck-count');
   deckCount.textContent = `Cards left in deck: ${deck.numberOfCards}`;
 }
 
@@ -94,6 +94,7 @@ function initialize(){
   setPiles(deck);
   setDeck();
   updateDeckCount();
+  
 }
 
 function setDeck(){
@@ -104,10 +105,18 @@ function setDeck(){
 
 function setPiles(deck){
   for (let i = 0; i < piles.length; i++){
-    const card = deck.deal(1)[0];
-    const imageEl = document.createElement('img');
-    imageEl.setAttribute('src', card.getImageUrl());
-    piles[i].appendChild(imageEl);
+    let j = 0;
+    while(j < i + 1){
+      const card = deck.deal(1)[0];
+      const imageEl = document.createElement('img');
+      imageEl.setAttribute('value', card.getImageUrl());
+      piles[i].appendChild(imageEl);
+      j++;
+    }
+    console.log(piles[i]);
+    //piles[i] is a div element because it is a div element we can acces the children.  First child allows us to target the first element in the selected div.  We can then set the img attribute of that first child.  We can set the source image to the value that we stored inside the image element in the while loop.
+    piles[i].firstChild.setAttribute('src', piles[i].firstChild.getAttribute('value'));
+   
   }
 }
 
@@ -120,15 +129,3 @@ function resetGame(){
   }
 }
 
-function allowDrop(ev){
-  ev.preventDefault();
-}
-
-function drag(ev){
-  ev.dataTransfer.setData('text', ev.target.id);
-}
-function drop(ev){
-  ev.preventDefault();
-  // ev.target.appendChild(document.getElementById(data));
-  // let data = ev.dataTransfer.getData("text");
-}
