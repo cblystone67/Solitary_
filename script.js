@@ -11,7 +11,7 @@ for(let i = 1; i <= 7; i++){
 
 
 const Suits = ['hearts', 'diamonds', 'spades', 'clubs'];
-const Values = ['A','K','Q','J','r10','r09','r08','r07','r06','r05','r04','r03','r02'];
+const Values = ['A', 'r02', 'r03', 'r04', 'r05', 'r06', 'r07', 'r08', 'r09', 'r10', 'J', 'Q', 'K']
 
 let deck;
 
@@ -49,6 +49,10 @@ class Card{
   }
   getImageUrl(){
     return `deck/images/${this.suit}/${this.suit}-${this.value}.svg`
+  }
+  getDetail(){
+    let color = (this.suit === 'hearts' || this.suit === 'diamonds') ? 'red' : 'black';
+    return `${this.suit}-${this.value}-${color}`
   }
 }
 
@@ -113,7 +117,7 @@ function setPiles(deck){
       const imageEl = document.createElement('img');
       imageEl.classList.add('class.suit')
       console.log(imageEl)
-      imageEl.setAttribute('value', card.getImageUrl());
+      imageEl.setAttribute('value', card.getDetail());
       imageEl.setAttribute('src', card.getImageUrl());
       imageEl.classList.add('card');
       piles[i].appendChild(imageEl);
@@ -144,11 +148,12 @@ let selectedCard = null;
 
  function handleClick(event){
    const clickedItem = event.target;
+   console.log(clickedItem.getAttribute('value'))
    // Check if a card has already been selected
    if(selectedCard) {
      // Replace the first selected card with the second one
      const temp = clickedItem.getAttribute('src');
-     console.log(selectedCard)
+     console.log(selectedCard.value)
      clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
      selectedCard.setAttribute('src', temp);
     
