@@ -46,6 +46,7 @@ class Card{
     this.suit = suit;
     this.value = value;
     
+    
   }
   getImageUrl(){
     return `deck/images/${this.suit}/${this.suit}-${this.value}.svg`
@@ -150,33 +151,89 @@ cards.forEach(card => {
 
 let selectedCard = null;
 
- function handleClick(event){
+function handleClick(event){
    const clickedItem = event.target;
-   console.log(clickedItem)
-   const selectedCardValue = clickedItem.getAttribute('value');
-  const targetCardValue = clickedItem.getAttribute('value');
-  //console.log(targetCardValue)
-   //console.log(clickedItem.getAttribute('value'))
-   // Check if a card has already been selected
-   console.log(clickedItem.parentElement.getAttribute('id'))
+   console.log('you clicked a ', clickedItem.nodeName);
+   
    if(selectedCard) {
+    // There's already a card selected, so the click we're handling is for the place where the card is to be dropped
+    console.log('Selected card')
+    console.log(selectedCard.getAttribute('value'))
 
-    
-     // Replace the first selected card with the second one
-     const temp = clickedItem//.getAttribute('src');
-     clickedItem.getAttribute('id');
-     console.log(temp.parentElement.getAttribute('id'))
-     clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
+    if(clickedItem.classList.contains('fdn')) {
+      console.log('you clicked a foundation pile');
 
-     selectedCard.setAttribute('src', temp);
-    
-     // Clear the selection
-     selectedCard.classList.remove('highlight');
-     selectedCard = null;
+      // Get the suit of the selected card
+      const selectedCardValue = selectedCard.getAttribute('value');
+      const selectedSuit = selectedCardValue.split('-')[0]
+
+      // Get the suit of the pile we clicked to drop the card
+      const targetCard = clickedItem.parentNode;
+      const targetCardValue = targetCard.id;
+      const targetSuit = targetCardValue.split('-')[0]
+
+      console.log('selected suit = ', selectedSuit, 'target suit = ', targetSuit);
+      if(selectedSuit != targetSuit) {
+        // Say something like an error message
+      } else {
+        // Now we know that the card is being dropped in the right foundation pile, so we need to decide whether it's OK to drop the card there, and then actually do it
+
+        // Check whether the card we're dropping (selectedCard) is one greater than the card we're dropping it on top of
+
+        // Extract selectedCard's value (split again)
+        // Look up the extracted value in Values array, and this is the position of the selected card (like "A")
+        // Extract targetCard's current card value (split again)
+        // Look up the target card's value in Values (position in this array)
+        // Position of selectedCard should differ from position of targetCard by 1
+
+        // If so, it's OK to drop the card here, so set the <img> tag
+        // Otherwise, refuse to drop the card, and just deselect the selectedCard
+      }
+    }
+
+    selectedCard.classList.remove('highlight');
+    selectedCard = null;
    } else {
      // Select the card
      clickedItem.classList.add('highlight');
      selectedCard = clickedItem;
    }
+
+   // Processed the action, so now check whether it's time to end the game
+   if(gameOver()) {
+    alert('you won!')
+   }
 }
 
+function gameOver() {
+  return false; // Replace this line with game logic
+
+  // Check the foundation piles
+  // Check whether the deck is now empty
+}
+
+function checkWin() {
+  const foundationPiles = [];
+  let allCardsInFoundation = 0;
+  for (let i = 0; i < 4; i++) {
+    const foundationPile = document.getElementById(`foundation-${Suits[i]}`);
+    foundationPiles.push(foundationPile);
+    allCardsInFoundation += foundationPile.children.length;
+  }
+
+  if (allCardsInFoundation !== 52) return false;
+
+  for (let i = 0; i < foundationPiles.length; i++) {
+    const pile = foundationPiles[i];
+    const cards = pile.children;
+
+    if (cards.length !== 13) return false;
+
+    for (let j = 0; j < cards.length; j++) {
+      const cardValue = parseInt(cards[j].getAttribute('value').split('-')[1]);
+      if (j + 1 !== cardValue) return false;
+    }
+  }
+
+  return true;
+}
