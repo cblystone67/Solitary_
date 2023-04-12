@@ -6,7 +6,7 @@ const deckCount = document.getElementById('deck-count');
 
 const piles = [];
 for(let i = 1; i <= 7; i++){
-  piles.push(document.getElementById(`pile${i}`));
+  piles.push(document.getElementById(`${i}`));
 }
 
 
@@ -125,36 +125,49 @@ function setPiles(deck){
     }
     console.log(piles[i]);
     //piles[i] is a div element because it is a div element we can acces the children.  First child allows us to target the first element in the selected div.  We can then set the img attribute of that first child.  We can set the source image to the value that we stored inside the image element in the while loop.
-    piles[i].firstChild.setAttribute('src', piles[i].firstChild.getAttribute('value'));
-    
+    // piles[i].firstChild.setAttribute('src', piles[i].firstChild.getAttribute('value'));
   }
 }
 
 function resetGame(){
   deckEl.innerHTML = '';
-  foundationEl.innerHTML = '';
+  console.log(deckEl.getAttribute('value'))
+  //foundationEl.innerHTML = '';
+  console.log(foundationEl.getAttribute('value'))
   for (let i = 1; i <= 7; i++){
-    const pileEl = document.getElementById(`pile${i}`);
+    const pileEl = document.getElementById(`${i}`);
     pileEl.innerHTML = '';
   }
 }
 
+//This attaches an eventlistener to every card.
 const cards = document.querySelectorAll('.card');
+console.log(cards)
 cards.forEach(card => {
   card.addEventListener('click', handleClick);
+  console.log(card)
 });
 
 let selectedCard = null;
 
  function handleClick(event){
    const clickedItem = event.target;
-   console.log(clickedItem.getAttribute('value'))
+   console.log(clickedItem)
+   const selectedCardValue = clickedItem.getAttribute('value');
+  const targetCardValue = clickedItem.getAttribute('value');
+  //console.log(targetCardValue)
+   //console.log(clickedItem.getAttribute('value'))
    // Check if a card has already been selected
+   console.log(clickedItem.parentElement.getAttribute('id'))
    if(selectedCard) {
+
+    
      // Replace the first selected card with the second one
-     const temp = clickedItem.getAttribute('src');
-     console.log(selectedCard.value)
+     const temp = clickedItem//.getAttribute('src');
+     clickedItem.getAttribute('id');
+     console.log(temp.parentElement.getAttribute('id'))
      clickedItem.setAttribute('src', selectedCard.getAttribute('src'));
+
      selectedCard.setAttribute('src', temp);
     
      // Clear the selection
@@ -166,3 +179,4 @@ let selectedCard = null;
      selectedCard = clickedItem;
    }
 }
+
