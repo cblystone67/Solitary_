@@ -4,17 +4,20 @@ const startBtn = document.getElementById('start-game');
 const flipBtn = document.getElementById('flip-cards');
 const deckCount = document.getElementById('deck-count');
 
+const Suits = ['hearts', 'diamonds', 'spades', 'clubs'];
+const Values = ['A', 'r02', 'r03', 'r04', 'r05', 'r06', 'r07', 'r08', 'r09', 'r10', 'J', 'Q', 'K']
+let deck;
+
+
+
+//Creates an array for the <div> id='1' so that we can attached the cards to them.
 const piles = [];
 for(let i = 1; i <= 7; i++){
   piles.push(document.getElementById(`${i}`));
 }
 
 
-const Suits = ['hearts', 'diamonds', 'spades', 'clubs'];
-const Values = ['A', 'r02', 'r03', 'r04', 'r05', 'r06', 'r07', 'r08', 'r09', 'r10', 'J', 'Q', 'K']
-
-let deck;
-
+//This is the deck class which holds the shuffle function and the deal funcions.  To help make sure we get a randomized deck of cards.
 class Deck{
   constructor(cards = freshDeck()){
     this.cards = cards;
@@ -41,6 +44,8 @@ class Deck{
   }
 }
 
+
+//The card class which develops the cards and returns the image from our image folder.  Holds the getImagUrl that gives us the image of the car you ar seeing on the board and develops an holding code so that we can match each card with their suit/value/color.
 class Card{
   constructor(suit, value){
     this.suit = suit;
@@ -56,7 +61,7 @@ class Card{
     return `${this.suit}-${this.value}-${color}`
   }
 }
-
+//This is a function found that creates a much more randomized deck of cards then using the sort function.  It uses both the flatmap and map functions to while creating each card from the card class.
 function freshDeck(){
   return Suits.flatMap(suit => {
     return Values.map(value => {
@@ -65,11 +70,13 @@ function freshDeck(){
   });
 }
 
-initialize();
+
+
+render();
 
 startBtn.addEventListener('click', function(){
   resetGame();
-  initialize();
+  render();
   flipCards();
 });
 
@@ -94,7 +101,7 @@ function updateDeckCount(){
 }
 
 
-function initialize(){
+function render(){
   deck = new Deck();
   deck.shuffle();
   setPiles(deck);
@@ -114,7 +121,7 @@ function setPiles(deck){
     let j = 0;
     while(j < i + 1){
       const card = deck.deal(1)[0];
-      console.log(card.suit);
+      //console.log(card.suit);
       const imageEl = document.createElement('img');
       imageEl.classList.add('class.suit')
       console.log(imageEl)
@@ -129,12 +136,12 @@ function setPiles(deck){
     // piles[i].firstChild.setAttribute('src', piles[i].firstChild.getAttribute('value'));
   }
 }
-
+//This is the function that is set to the start game button and allows the player to reset the game
 function resetGame(){
   deckEl.innerHTML = '';
-  console.log(deckEl.getAttribute('value'))
+  //console.log(deckEl.getAttribute('value'))
   //foundationEl.innerHTML = '';
-  console.log(foundationEl.getAttribute('value'))
+  //console.log(foundationEl.getAttribute('value'))
   for (let i = 1; i <= 7; i++){
     const pileEl = document.getElementById(`${i}`);
     pileEl.innerHTML = '';
@@ -175,9 +182,10 @@ function handleClick(event){
       console.log('selected suit = ', selectedSuit, 'target suit = ', targetSuit);
       if(selectedSuit != targetSuit) {
         // Say something like an error message
+        console.log('Error: Card suit does not match foundation pile')
       } else {
         // Now we know that the card is being dropped in the right foundation pile, so we need to decide whether it's OK to drop the card there, and then actually do it
-
+        
         // Check whether the card we're dropping (selectedCard) is one greater than the card we're dropping it on top of
 
         // Extract selectedCard's value (split again)
@@ -190,7 +198,6 @@ function handleClick(event){
         // Otherwise, refuse to drop the card, and just deselect the selectedCard
       }
     }
-
     selectedCard.classList.remove('highlight');
     selectedCard = null;
    } else {
@@ -212,28 +219,28 @@ function gameOver() {
   // Check whether the deck is now empty
 }
 
-function checkWin() {
-  const foundationPiles = [];
-  let allCardsInFoundation = 0;
-  for (let i = 0; i < 4; i++) {
-    const foundationPile = document.getElementById(`foundation-${Suits[i]}`);
-    foundationPiles.push(foundationPile);
-    allCardsInFoundation += foundationPile.children.length;
-  }
+// function checkWin() {
+//   const foundationPiles = [];
+//   let allCardsInFoundation = 0;
+//   for (let i = 0; i < 4; i++) {
+//     const foundationPile = document.getElementById(`foundation-${Suits[i]}`);
+//     foundationPiles.push(foundationPile);
+//     allCardsInFoundation += foundationPile.children.length;
+//   }
 
-  if (allCardsInFoundation !== 52) return false;
+//   if (allCardsInFoundation !== 52) return false;
 
-  for (let i = 0; i < foundationPiles.length; i++) {
-    const pile = foundationPiles[i];
-    const cards = pile.children;
+//   for (let i = 0; i < foundationPiles.length; i++) {
+//     const pile = foundationPiles[i];
+//     const cards = pile.children;
 
-    if (cards.length !== 13) return false;
+//     if (cards.length !== 13) return false;
 
-    for (let j = 0; j < cards.length; j++) {
-      const cardValue = parseInt(cards[j].getAttribute('value').split('-')[1]);
-      if (j + 1 !== cardValue) return false;
-    }
-  }
+//     for (let j = 0; j < cards.length; j++) {
+//       const cardValue = parseInt(cards[j].getAttribute('value').split('-')[1]);
+//       if (j + 1 !== cardValue) return false;
+//     }
+//   }
 
-  return true;
-}
+//   return true;
+// }
